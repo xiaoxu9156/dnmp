@@ -94,8 +94,7 @@ RUN set -xe \
 COPY extensions/ /tmp/
 RUN chmod +x /tmp/install.sh \
         && /tmp/install.sh \
-        && rm -rf /tmp/* \
-        && mkdir /app
+        && rm -rf /tmp/*
 
 # clear deps
 RUN apk del .build-deps && cp /usr/share/zoneinfo/PRC /etc/localtime
