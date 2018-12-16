@@ -1,3 +1,0 @@
-*.conf
-!localhost.conf
-!rewrite/*.conf

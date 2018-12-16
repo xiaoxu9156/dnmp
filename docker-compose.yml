@@ -18,7 +18,8 @@ services:
         - ./log/nginx:/var/log/nginx:rw
       restart: always
       networks:
-        - net-php
+        net-php:
+          ipv4_address: 172.22.0.2
 
   ### PHP container #########################################
 
@@ -34,6 +35,9 @@ services:
         - ./log/php:/var/log:rw
         - ./crond/root:/var/spool/cron/crontabs/root:rw
       restart: always
+      extra_hosts:
+        - "admin.local.com:172.22.0.2"
+        - "api.local.com:172.22.0.2"
       networks:
         - net-php
         - net-mysql
@@ -58,4 +62,9 @@ services:
 
 networks:
   net-php:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/24
   net-mysql:
