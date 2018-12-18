@@ -38,6 +38,8 @@ services:
       extra_hosts:
         - "admin.local.com:172.22.0.2"
         - "api.local.com:172.22.0.2"
+        - "pay.local.com:172.22.0.2"
+        - "salesapi.local.com:172.22.0.2"
       networks:
         - net-php
         - net-mysql
