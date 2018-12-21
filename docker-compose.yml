@@ -23,6 +23,17 @@ services:
 
   ### PHP container #########################################
 
+  java:
+      build:
+        context: ./build/java
+      expose:
+        - "21230"
+      restart: always
+      networks:
+        - net-java
+
+  ### PHP container #########################################
+
   php:
       build:
         context: ./build/php
@@ -43,6 +54,7 @@ services:
       networks:
         - net-php
         - net-mysql
+        - net-java
 
   ### Mysql container #########################################
 
@@ -70,3 +82,4 @@ networks:
       config:
         - subnet: 172.22.0.0/24
   net-mysql:
+  net-java:
