@@ -85,7 +85,8 @@ services:
     restart: always
     entrypoint: ["redis-server", "/etc/redis.conf"]
     networks:
-      - net-php
+      net-php:
+        ipv4_address: 172.22.0.3
 
 networks:
   net-php:
