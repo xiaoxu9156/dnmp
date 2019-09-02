@@ -1,0 +1,12 @@
+{
+   "port": "__YAPI_PORT__",
+   "adminAccount": "__ADMIN_ACCOUNT__",
+   "db": {
+      "servername": "__DB_SERVER__",
+      "DATABASE": "__DB_NAME__",
+      "port": "__DB_PORT__",
+      "user": "",
+      "pass": ""
+   }
+}
+

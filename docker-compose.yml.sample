@@ -113,8 +113,9 @@ services:
     environment:
       TZ: ${TZ}
       LANG: C.UTF-8
-    volumes:
-      - ./db/mongodb:/data/db:rw
+    # Windows 平台不支持目录挂载，Mac 和 Linux 下可去掉注释以实现持久化存储
+    # volumes:
+    #   - ./db/mongodb:/data/db:rw
     restart: always
     expose:
       - "${MONGODB_EXPOSE_PORT}"
