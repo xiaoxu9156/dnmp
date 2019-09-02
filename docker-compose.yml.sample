@@ -99,6 +99,7 @@ services:
       - "${REDIS_HOST_PORT}:6379"
     volumes:
       - ./conf/redis/redis.conf:/etc/redis.conf:ro
+      - ./db/redis:/data:rw
     restart: always
     entrypoint: ["redis-server", "/etc/redis.conf"]
     networks:

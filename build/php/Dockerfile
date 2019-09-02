@@ -1,6 +1,7 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}-fpm-alpine
 ENV LANG C.UTF-8
+ENV PHP_COMPOSER_MIRROR=https://mirrors.aliyun.com/composer/
 
 ARG TZ
 ARG PHP_EXTENSIONS
@@ -22,9 +23,14 @@ RUN chmod +x install.sh \
 
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
-# 复制启动命令
+WORKDIR /root
+
+# 复制启动命令和安装composer
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint \
+    && wget -O /usr/local/bin/composer ${PHP_COMPOSER_MIRROR}"composer.phar" \
+    && chmod +x /usr/local/bin/composer \
+    && composer config -g repo.packagist composer ${PHP_COMPOSER_MIRROR}
 
 WORKDIR /app
 
