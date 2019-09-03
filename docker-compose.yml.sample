@@ -162,6 +162,7 @@ services:
       TZ: $TZ
     depends_on:
       - mysql
+    restart: always
     networks:
       net-default:
         ipv4_address: ${PHPMYADMIN_IPV4}
