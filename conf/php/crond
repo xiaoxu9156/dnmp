@@ -6,4 +6,10 @@
 0       3       *       *       6       run-parts /etc/periodic/weekly
 0       5       1       *       *       run-parts /etc/periodic/monthly
 # 自定义的任务写在下面，上面的内容不要修改
-#*       *       *       *       *       echo `date` >> /tmp/test.log
+#0 0 * * * /app/golf/protected/yiic crons Day1 && /app/new-golf/yii one-day
+#*/10 * * * * /app/golf/protected/yiic crons Minute10 && /app/new-golf/yii ten-minute
+#* * * * * /app/golf-sales/yii one-minute
+#30 8 * * * /app/new-golf/yii eight-clock
+#0 1 1 1 * /app/golf/protected/yiic newyear
+#0 8,17 * * * /app/golf-sales/yii seventeen-clock
+#0 8 * * * /app/golf-sales/yii eight-clock
