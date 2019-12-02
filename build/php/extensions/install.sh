@@ -61,8 +61,16 @@ installPHPExtensions() {
         if [ 'redis' = ${ext} ]; then
             mkdir redis \
             && tar -xf phpredis-4.1.1.tar.gz -C redis --strip-components=1 \
-            && ( cd redis && phpize && ./configure && make ${MC} && make install ) \
+            && ( cd redis && phpize && ./configure && make -j$(nproc) && make install ) \
             && docker-php-ext-enable redis
+            continue
+        fi
+
+        if [ 'swoole' = ${ext} ]; then
+            mkdir swoole \
+            && tar -xf swoole-src-4.4.12.tar.gz -C swoole --strip-components=1 \
+            && ( cd swoole && phpize && ./configure && make -j$(nproc) && make install ) \
+            && docker-php-ext-enable swoole
             continue
         fi
 
