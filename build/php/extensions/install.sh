@@ -51,6 +51,7 @@ installPHPExtensions() {
         fi
 
         if [ 'mongodb' = ${ext} ]; then
+            apk add --no-cache openssl openssl-dev
             mkdir mongodb \
             && tar -xf mongo-php-driver-1.5.3.tar.gz -C mongodb --strip-components=1 \
             && ( cd mongodb && phpize && ./configure  && make -j$(nproc) && make install ) \
