@@ -167,6 +167,24 @@ services:
       net-default:
         ipv4_address: ${PHPMYADMIN_IPV4}
 
+### Swoft container #########################################
+
+  swoft:
+    build:
+      context: ./build/swoft
+    container_name: swoft
+    command: php -S 127.0.0.1:13300
+    environment:
+      - APP_ENV=prod
+      - TIMEZONE=${TZ}
+    restart: always
+    volumes:
+       - ${WWW_DIR}:/app:rw
+    # entrypoint: ["php", "/app/${SWOFT_WS_DIR}/bin/swoft", "ws:start"]
+    networks:
+      net-default:
+        ipv4_address: ${SWOFT_IPV4}
+
 networks:
   net-default:
     driver: bridge

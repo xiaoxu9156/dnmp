@@ -6,3 +6,4 @@ conf/nginx/conf.d/rewrite/wxgolf.conf
 /.idea/dnmp.iml
 /.idea/modules.xml
 /.idea/vcs.xml
+db.zip

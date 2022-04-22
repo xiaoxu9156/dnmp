@@ -1,5 +1,6 @@
 {
    "port": "__YAPI_PORT__",
+   "closeRegister": true,
    "adminAccount": "__ADMIN_ACCOUNT__",
    "db": {
       "servername": "__DB_SERVER__",
