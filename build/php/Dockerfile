@@ -7,30 +7,28 @@ ARG TZ
 ARG PHP_EXTENSIONS
 ARG ALPINE_REPOSITORIES
 
+COPY ./extensions /tmp/extensions
+
 RUN if [ "${ALPINE_REPOSITORIES}" != "" ]; then \
         sed -i "s/dl-cdn.alpinelinux.org/${ALPINE_REPOSITORIES}/g" /etc/apk/repositories; \
     fi \
-    && apk --no-cache add supervisor tzdata \
+    && apk --no-cache add supervisor tzdata git \
     && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
-    && echo "$TZ" > /etc/timezone
-
-COPY ./extensions /tmp/extensions
-WORKDIR /tmp/extensions
-
-RUN chmod +x install.sh \
-    && /bin/sh install.sh \
+    && echo "$TZ" > /etc/timezone \
+    # 安装拓展
+    && cp /tmp/extensions/install-php-extensions /usr/local/bin/ \
+    && chmod +x /usr/local/bin/install-php-extensions \
+    && install-php-extensions ${PHP_EXTENSIONS} \
+    # 安装 composer
+    && cp /tmp/extensions/composer.phar /usr/local/bin/composer \
+    && chmod +x /usr/local/bin/composer \
+    && composer config -g repo.packagist composer ${PHP_COMPOSER_MIRROR} \
+    # 设置启动命令
+    && cp /tmp/extensions/docker-entrypoint.sh /usr/local/bin/docker-entrypoint \
+    && chmod +x /usr/local/bin/docker-entrypoint \
     && rm -rf /tmp/extensions
 
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
-
-WORKDIR /root
-
-# 复制启动命令和安装composer
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint \
-    && wget -O /usr/local/bin/composer ${PHP_COMPOSER_MIRROR}"composer.phar" \
-    && chmod +x /usr/local/bin/composer \
-    && composer config -g repo.packagist composer ${PHP_COMPOSER_MIRROR}
 
 WORKDIR /app
 
