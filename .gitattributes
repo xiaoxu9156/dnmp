@@ -4,3 +4,4 @@
 *.jpg binary
 *.tgz binary
 *.tar.gz binary
+*.phar binary
