@@ -21,6 +21,11 @@ services:
     networks:
       net-default:
         ipv4_address: ${NGINX_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "1"
 
   ### PHP container #########################################
 
@@ -53,6 +58,11 @@ services:
     networks:
       net-default:
         ipv4_address: ${PHP_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "1"
 
   ### Java container #########################################
 
@@ -66,6 +76,11 @@ services:
     networks:
       net-default:
         ipv4_address: ${JAVA_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "1"
 
   ### Mysql container #########################################
 
@@ -86,6 +101,11 @@ services:
     networks:
       net-default:
         ipv4_address: ${MYSQL_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "1"
 
   ### Redis container #########################################
 
@@ -105,6 +125,11 @@ services:
     networks:
       net-default:
         ipv4_address: ${REDIS_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "1"
 
   ### mongodb container #########################################
 
@@ -123,6 +148,11 @@ services:
     networks:
       net-default:
         ipv4_address: ${MONGODB_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "1"
 
   ### yapi container #########################################
 
@@ -150,6 +180,11 @@ services:
     networks:
       net-default:
         ipv4_address: ${YAPI_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "1"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -166,6 +201,11 @@ services:
     networks:
       net-default:
         ipv4_address: ${PHPMYADMIN_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "1"
 
 ### Swoft container #########################################
 
@@ -184,6 +224,11 @@ services:
     networks:
       net-default:
         ipv4_address: ${SWOFT_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "1"
 
 networks:
   net-default:
