@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-  ### Nginx container #########################################
+### Nginx container #########################################
 
   nginx:
     image: nginx:${NGINX_VERSION}-alpine
@@ -27,7 +27,7 @@ services:
         max-size: "20m"
         max-file: "1"
 
-  ### PHP container #########################################
+### PHP container #########################################
 
   php:
     build:
@@ -64,7 +64,7 @@ services:
         max-size: "20m"
         max-file: "1"
 
-  ### Java container #########################################
+### Java container #########################################
 
   java:
     build:
@@ -72,6 +72,8 @@ services:
     container_name: java
     expose:
       - "${JAVA_EXPOSE_PORT}"
+    volumes:
+      - ${WWW_DIR}/certs:/app/certs:ro
     restart: always
     networks:
       net-default:
@@ -82,7 +84,25 @@ services:
         max-size: "5m"
         max-file: "1"
 
-  ### Mysql container #########################################
+### Java Pab container #########################################
+
+  java-pab:
+    build:
+      context: ./build/java-pab
+    container_name: java-pab
+    expose:
+      - "${JAVA_PAB_EXPOSE_PORT}"
+    restart: always
+    networks:
+      net-default:
+        ipv4_address: ${JAVA_PAB_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "1"
+
+### Mysql container #########################################
 
   mysql:
     image: mysql:${MYSQL_VERSION}
@@ -107,7 +127,7 @@ services:
         max-size: "20m"
         max-file: "1"
 
-  ### Redis container #########################################
+### Redis container #########################################
 
   redis:
     image: redis:${REDIS_VERSION}-alpine
@@ -131,7 +151,7 @@ services:
         max-size: "10m"
         max-file: "1"
 
-  ### mongodb container #########################################
+### mongodb container #########################################
 
   mongodb:
     image: mongo:${MONGODB_VERSION}
@@ -154,7 +174,7 @@ services:
         max-size: "20m"
         max-file: "1"
 
-  ### yapi container #########################################
+### Yapi container #########################################
 
   yapi:
     build:
@@ -185,6 +205,8 @@ services:
       options:
         max-size: "5m"
         max-file: "1"
+
+### PHPMyAdmin container #########################################
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
