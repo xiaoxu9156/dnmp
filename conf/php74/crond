@@ -1,0 +1,15 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# 自定义的任务写在下面，上面的内容不要修改
+# golf 项目
+# 0 0 * * * /app/golf/protected/yiic crons Day1
+# 0 3 * * * /app/golf/protected/yiic crons Clock3
+# new-golf 项目
+# 0 0 * * * /app/new-golf/yii one-day/index
+# 0 3 * * * /app/new-golf/yii one-day/clock3
+# 30 8 * * * /app/new-golf/yii eight-clock/index
+# 30 3 * * * /app/new-golf/yii yungao/index
+# 0 1 1 * * /app/new-golf/yii one-month/index
+# 0 5 1 * * /app/new-golf/yii one-month/clock5
+# 0 0 15 * * /app/new-golf/yii every-month-fifteen-day/index
