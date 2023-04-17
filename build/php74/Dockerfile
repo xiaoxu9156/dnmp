@@ -14,7 +14,7 @@ RUN set -eux; \
        then sed -i "s/deb.debian.org/${SOURCES_MIRROR}/g" /etc/apt/sources.list; \
     fi; \
     apt-get update; \
-	apt-get install -y --no-install-recommends supervisor cron git; \
+	apt-get install -y --no-install-recommends supervisor cron git unzip; \
 	rm -rf /var/lib/apt/lists/*; \
     echo "${TZ}" > /etc/timezone; \
     ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime; \
@@ -29,7 +29,9 @@ RUN set -eux; \
     # 设置启动命令
     cp /tmp/extensions/docker-entrypoint.sh /usr/local/bin/docker-entrypoint; \
     chmod +x /usr/local/bin/docker-entrypoint; \
-    rm -rf /tmp/extensions;
+    rm -rf /tmp/extensions; \
+    # 修改 www-data 的 uid 和 gid，避免权限问题
+    usermod -u 82 www-data && groupmod -g 82 www-data;
 
 WORKDIR /app
 
