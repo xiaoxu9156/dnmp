@@ -31,7 +31,9 @@ RUN set -eux; \
     chmod +x /usr/local/bin/docker-entrypoint; \
     rm -rf /tmp/extensions; \
     # 修改 www-data 的 uid 和 gid，避免权限问题
-    usermod -u 82 www-data && groupmod -g 82 www-data;
+    usermod -u 82 www-data && groupmod -g 82 www-data; \
+    # 修改 openssl 配置文件解决curl请求时携带 ssl_cert 的报错
+    sed -i 's/SECLEVEL=2/SECLEVEL=1/g' /etc/ssl/openssl.cnf;
 
 WORKDIR /app
 
