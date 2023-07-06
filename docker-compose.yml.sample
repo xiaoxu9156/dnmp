@@ -171,6 +171,33 @@ services:
         max-size: "20m"
         max-file: "1"
 
+### Mysql Slave1 container #########################################
+
+  mysql-s1:
+    image: mysql:${MYSQL_VERSION}
+    container_name: mysql-s1
+    environment:
+      TZ: ${TZ}
+      LANG: C.UTF-8
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${MYSQL_S1_HOST_PORT}:3306"
+    volumes:
+      - ./db/mysql-s1:/var/lib/mysql:rw
+      - ./conf/mysql-s1/my.cnf:/etc/mysql/my.cnf:ro
+      - ./log/mysql-s1:/var/log/mysql:rw
+    restart: always
+    depends_on:
+      - mysql
+    networks:
+      net-default:
+        ipv4_address: ${MYSQL_S1_IPV4}
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "1"
+
 ### Redis container #########################################
 
   redis:
